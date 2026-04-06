@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jean de Dieu Niyonteze</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:       #0e1117;
+      --surface:  #161b26;
+      --surface2: #1e2535;
+      --border:   rgba(255,255,255,0.08);
+      --text:     #e2e8f0;
+      --muted:    #6b7280;
+      --accent:   #4fffb0;
+      --accent2:  #818cf8;
+    }
+    html.light {
+      --bg:       #f8f9fb;
+      --surface:  #ffffff;
+      --surface2: #f0f2f5;
+      --border:   rgba(0,0,0,0.08);
+      --text:     #111827;
+      --muted:    #6b7280;
+      --accent:   #059669;
+      --accent2:  #4f46e5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      line-height: 1.65;
+      overflow-x: hidden;
+      transition: background .35s, color .35s;
+    }
+
+    /* ── THEME TOGGLE ── */
+    #themeToggle {
+      position: fixed;
+      top: 1rem; right: 1.2rem;
+      z-index: 999;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: .3rem .85rem;
+      cursor: pointer;
+      display: flex; align-items: center; gap: .4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: .07em;
+      color: var(--muted);
+      transition: border-color .2s, color .2s, transform .2s, background .35s;
+    }
+    #themeToggle:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.05); }
+    .t-icon { font-size: 13px; transition: transform .45s; }
+    html.light .t-icon { transform: rotate(180deg); }
+
+    /* ── WRAPPER ── */
+    .page { max-width: 780px; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+    /* ══ HEADER ══ */
+    header {
+      text-align: center;
+      padding: 3.5rem 1rem 2.2rem;
+      opacity: 0; animation: fadeUp .6s ease forwards .05s;
+    }
+    header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      margin-bottom: .6rem;
+    }
+    .star { color: var(--accent); }
+
+    .contact-bar {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: .4rem 1rem;
+      margin-bottom: 1.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 11.5px; color: var(--muted);
+    }
+    .contact-bar a { color: var(--muted); text-decoration: none; transition: color .2s; }
+    .contact-bar a:hover { color: var(--accent); }
+    .contact-bar .dot { opacity: .3; }
+
+    /* filter tabs */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: .4rem;
+      opacity: 0; animation: fadeUp .6s ease forwards .2s;
+    }
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      border-radius: 99px;
+      padding: .25rem .8rem;
+      font-size: 11.5px; letter-spacing: .04em;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .2s;
+      font-family: 'DM Mono', monospace;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+      font-weight: 600;
+    }
+
+    /* ══ SECTIONS ══ */
+    section {
+      margin-top: 2.8rem;
+      opacity: 0; transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    section.visible { opacity: 1; transform: translateY(0); }
+
+    .sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      display: flex; align-items: center; gap: .6rem;
+      margin-bottom: 1.3rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ══ EXPERIENCE ══ */
+    .exp-block { margin-bottom: 1.8rem; }
+
+    .exp-head {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: baseline;
+      gap: .3rem; margin-bottom: .2rem;
+    }
+    .exp-role {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: .95rem;
+    }
+    .exp-company { color: var(--accent2); font-size: .82rem; margin-top: .1rem; }
+    .exp-date { font-size: .78rem; color: var(--muted); font-style: italic; }
+
+    .exp-list { list-style: none; margin-top: .55rem; }
+    .exp-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: .8rem;
+      padding: .32rem 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.55;
+    }
+    .exp-list li:last-child { border-bottom: none; }
+    .li-text { flex: 1; }
+    .li-text::before { content: '💡 '; }
+
+    .cat-badge {
+      flex-shrink: 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      padding: .15rem .5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      font-weight: 500;
+      margin-top: .18rem;
+    }
+    .cat-ds    { background: rgba(37,99,235,.18);  color: #93c5fd; }
+    .cat-ml    { background: rgba(124,58,237,.18); color: #c4b5fd; }
+    .cat-med   { background: rgba(8,145,178,.18);  color: #67e8f9; }
+    .cat-mlops { background: rgba(6,95,70,.25);    color: #6ee7b7; }
+    .cat-teach { background: rgba(180,83,9,.18);   color: #fcd34d; }
+
+    html.light .cat-ds    { background: #dbeafe; color: #1d4ed8; }
+    html.light .cat-ml    { background: #ede9fe; color: #6d28d9; }
+    html.light .cat-med   { background: #cffafe; color: #0e7490; }
+    html.light .cat-mlops { background: #d1fae5; color: #065f46; }
+    html.light .cat-teach { background: #fef3c7; color: #92400e; }
+
+    /* ══ PROJECTS 2-col GRID ══ */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: .85rem;
+    }
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.1rem;
+      transition: border-color .25s, transform .25s, background .35s;
+    }
+    .proj-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+    .proj-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: .88rem;
+      margin-bottom: .35rem;
+    }
+    .proj-desc { font-size: .81rem; color: var(--muted); line-height: 1.55; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: .28rem; margin-top: .55rem; }
+    .proj-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; padding: .1rem .42rem;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .proj-metric {
+      display: inline-block; margin-top: .5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; padding: .15rem .48rem;
+      border-radius: 3px;
+      background: rgba(79,255,176,.1); color: var(--accent);
+    }
+    html.light .proj-metric { background: #d1fae5; color: #065f46; }
+
+    /* ══ PUBLICATIONS ══ */
+    .pub-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin-bottom: .75rem;
+      transition: border-color .25s, background .35s;
+    }
+    .pub-item:hover { border-color: var(--accent2); }
+    .pub-venue { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent2); letter-spacing: .08em; margin-bottom: .3rem; }
+    .pub-title { font-size: .87rem; line-height: 1.5; margin-bottom: .3rem; font-style: italic; }
+    .pub-authors { font-size: .78rem; color: var(--muted); }
+    .pub-authors a { color: var(--accent2); text-decoration: none; }
+
+    /* ══ SKILLS ══ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: .75rem;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .85rem 1rem;
+      transition: background .35s, border-color .25s;
+    }
+    .skill-card:hover { border-color: var(--accent); }
+    .skill-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .skill-items { font-size: .82rem; color: var(--muted); line-height: 1.65; }
+
+    /* ══ EDUCATION ══ */
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+      margin-bottom: .75rem;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: flex-start;
+      gap: .5rem;
+      transition: border-color .25s, background .35s;
+    }
+    .edu-card:hover { border-color: var(--accent); }
+    .edu-school { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .93rem; margin-bottom: .2rem; }
+    .edu-degree { font-size: .82rem; color: var(--muted); }
+    .edu-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); white-space: nowrap; }
+    .edu-courses { list-style: disc; padding-left: 1.2rem; margin-top: .55rem; color: var(--muted); font-size: .8rem; line-height: 1.7; }
+
+    /* ══ ACHIEVEMENTS ══ */
+    .ach-item {
+      display: flex; align-items: flex-start; gap: .75rem;
+      padding: .55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .85rem;
+    }
+    .ach-item:last-child { border-bottom: none; }
+    .ach-icon { flex-shrink: 0; font-size: 1rem; }
+    .ach-text { flex: 1; color: var(--muted); }
+    .ach-text strong { color: var(--text); }
+    .ach-cat {
+      flex-shrink: 0;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      padding: .12rem .45rem; border-radius: 3px;
+      background: rgba(129,140,248,.15); color: var(--accent2);
+    }
+    html.light .ach-cat { background: #ede9fe; color: #4f46e5; }
+
+    /* ══ FOOTER ══ */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 11.5px;
+      transition: border-color .35s;
+    }
+    footer span { color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
+
+    @media (max-width: 540px) {
+      .proj-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<button id="themeToggle" aria-label="Toggle theme">
+  <span class="t-icon">🌙</span>
+  <span class="t-label">dark</span>
+</button>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <h1>Jean de Dieu Niyonteze <span class="star">🌟</span></h1>
+    <div class="contact-bar">
+      <a href="mailto:jeandedn@alumni.cmu.edu">📧 jeandedn@alumni.cmu.edu</a>
+      <span class="dot">•</span>
+      <a href="tel:4047138713">📞 (404) 713-8713</a>
+      <span class="dot">•</span>
+      <a href="https://www.linkedin.com/in/jean-de-dieu-niyonteze-309984110/" target="_blank">💼 LinkedIn</a>
+      <span class="dot">•</span>
+      <a href="https://github.com/niyontezejado/niyontezejado/blob/main/README.md" target="_blank">💻 GitHub</a>
+      <span class="dot">•</span>
+      <a href="https://scholar.google.com/scholar?hl=en&as_sdt=0%2C11&q=niyonteze+jean+de+dieu" target="_blank">🔬 Scholar</a>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="Data Science">Data Science</button>
+      <button class="filter-btn" data-cat="AI/ML">AI / ML</button>
+      <button class="filter-btn" data-cat="Medical Imaging">Medical Imaging</button>
+      <button class="filter-btn" data-cat="Deep Learning">Deep Learning</button>
+      <button class="filter-btn" data-cat="Research">Research</button>
+      <button class="filter-btn" data-cat="MLOps">MLOps</button>
+    </div>
+  </header>
+
+  <!-- EXPERIENCE -->
+  <section>
+    <div class="sec-title">🧑‍💻 Experience</div>
+
+    <div class="exp-block">
+      <div class="exp-head">
+        <div>
+          <div class="exp-role">Data Science Consultant</div>
+          <div class="exp-company">Emory Healthcare</div>
+        </div>
+        <div class="exp-date">Dec 2025 – Present · Atlanta, GA</div>
+      </div>
+      <ul class="exp-list">
+        <li data-cat="Data Science">
+          <span class="li-text">Developed ML models on EHR/Epic datasets to predict surgical supply needs, reducing waste by 5% and improving operational efficiency, directly informing clinical procurement decisions.</span>
+          <span class="cat-badge cat-ds">Data Science</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="exp-block">
+      <div class="exp-head">
+        <div>
+          <div class="exp-role">Senior R&amp;D Engineer</div>
+          <div class="exp-company">IRCAD France</div>
+        </div>
+        <div class="exp-date">2023 – 2025 · Strasbourg, France</div>
+      </div>
+      <ul class="exp-list">
+        <li data-cat="Medical Imaging">
+          <span class="li-text">Designed and deployed end-to-end medical imaging AI pipelines for pneumothorax and liver segmentation — mean DICE scores of 0.81–0.86.</span>
+          <span class="cat-badge cat-med">Medical Imaging</span>
+        </li>
+        <li data-cat="Deep Learning">
+          <span class="li-text">Developed pipelines to train, evaluate, and infer 3D liver segmentation and landmark localization models.</span>
+          <span class="cat-badge cat-ml">Deep Learning</span>
+        </li>
+        <li data-cat="AI/ML">
+          <span class="li-text">Built AI models for fetal biometry achieving 90%+ accuracy, enabling real-time gestational age estimation for Rwandan clinicians.</span>
+          <span class="cat-badge cat-ml">AI / ML</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="exp-block">
+      <div class="exp-head">
+        <div>
+          <div class="exp-role">Graduate Teaching Assistant</div>
+          <div class="exp-company">Carnegie Mellon University</div>
+        </div>
+        <div class="exp-date">Fall 2022 · Pittsburgh, PA &amp; Kigali, Rwanda</div>
+      </div>
+      <ul class="exp-list">
+        <li data-cat="Research">
+          <span class="li-text">Mentored students on ML model design and data analysis, simplifying complex ML concepts for non-technical audiences.</span>
+          <span class="cat-badge cat-teach">Teaching</span>
+        </li>
+        <li data-cat="Research">
+          <span class="li-text">Held office hours, prepared and graded assignments, and delivered recitations.</span>
+          <span class="cat-badge cat-teach">Teaching</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="exp-block">
+      <div class="exp-head">
+        <div>
+          <div class="exp-role">Data Analyst</div>
+          <div class="exp-company">Hello Renewables</div>
+        </div>
+        <div class="exp-date">2015 – 2021 · Kigali, Rwanda</div>
+      </div>
+      <ul class="exp-list">
+        <li data-cat="Data Science">
+          <span class="li-text">Designed predictive models to forecast PV system failures, reducing downtime by 12%.</span>
+          <span class="cat-badge cat-ds">Data Science</span>
+        </li>
+        <li data-cat="MLOps">
+          <span class="li-text">Built end-to-end Python and Excel pipelines for large-scale time-series and tabular data processing.</span>
+          <span class="cat-badge cat-mlops">MLOps</span>
+        </li>
+        <li data-cat="Data Science">
+          <span class="li-text">Performed EDA and statistical analysis to identify trends, anomalies, and failure patterns in energy systems.</span>
+          <span class="cat-badge cat-ds">Data Science</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <div class="sec-title">🚀 Projects</div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-name">✨ Breast Cancer Prediction</div>
+        <div class="proj-desc">Trained ML models (Logistic Regression, Random Forest, XGBoost, SVM) on Wisconsin Breast Cancer dataset (~569 samples).</div>
+        <div class="proj-tags">
+          <span class="proj-tag">AI/ML</span><span class="proj-tag">Scikit-Learn</span>
+        </div>
+        <span class="proj-metric">99% accuracy</span>
+      </div>
+      <div class="proj-card">
+        <div class="proj-name">✨ Heart Failure Prediction</div>
+        <div class="proj-desc">Built Random Forest, Neural Network, and SVM models to predict heart failure outcomes and identify high-risk patients.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">AI/ML</span><span class="proj-tag">PyTorch</span>
+        </div>
+        <span class="proj-metric">F1 score 0.86</span>
+      </div>
+      <div class="proj-card">
+        <div class="proj-name">✨ Lung Segmentation (DL)</div>
+        <div class="proj-desc">CNN-based models for lung and cancer segmentation on chest X-rays. Experimented with transformer-based segmentation architectures.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Deep Learning</span><span class="proj-tag">Medical Imaging</span>
+        </div>
+        <span class="proj-metric">DICE score 0.96</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section>
+    <div class="sec-title">📄 Publications (Peer-Reviewed)</div>
+    <div class="pub-item">
+      <div class="pub-venue">IEEE · ICARC 2026</div>
+      <div class="pub-title">Deep Learning-Driven Retinal Vessel Segmentation Using a Transformer-Based Architecture: A Performance Evaluation</div>
+      <div class="pub-authors">Byiringiro, Y., <strong>Niyonteze, J.D.D.</strong>, Tuyishime, L., et al. · <a href="https://doi.org/10.1109/ICARC68737.2026.11454025" target="_blank">DOI ↗</a></div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-venue">IEEE · ICARC 2026</div>
+      <div class="pub-title">Experimental Evaluation of Public Retinal Vessel Segmentation Datasets (2020–2025) with Deep Learning: An Empirical Study</div>
+      <div class="pub-authors">Mugisha, R.N., …, <strong>Niyonteze, J.D.D.</strong> · <a href="https://doi.org/10.1109/ICARC68737.2026.11453545" target="_blank">DOI ↗</a></div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <div class="sec-title">🛠 Technical Capabilities</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-cat">ML / Deep Learning</div>
+        <div class="skill-items">PyTorch · TensorFlow · MONAI · nnU-Net · SegFormer · Scikit-Learn · MM Detection</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Programming</div>
+        <div class="skill-items">Python · R · SQL · MATLAB</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">MLOps &amp; DevOps</div>
+        <div class="skill-items">Git · DVC · Bash · AWS · Postman · MLflow · Jira</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Advanced Methods</div>
+        <div class="skill-items">Transformer architectures · CNNs · Predictive analytics · Segmentation pipelines</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section>
+    <div class="sec-title">🏆 Achievements</div>
+    <div class="ach-item">
+      <span class="ach-icon">🎖</span>
+      <span class="ach-text"><strong>Active peer reviewer</strong> for IEEE, Springer, Wiley journals and MICCAI conferences.</span>
+      <span class="ach-cat">Research</span>
+    </div>
+    <div class="ach-item">
+      <span class="ach-icon">🎓</span>
+      <span class="ach-text"><strong>MasterCard Foundation Scholar</strong> — Full scholarship, Carnegie Mellon University (2021).</span>
+      <span class="ach-cat">Leadership</span>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <div class="sec-title">🎓 Education</div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-school">🎓 Emory University, Goizueta Business School</div>
+        <div class="edu-degree">MS in Business Analytics (STEM) · Data Science, ML &amp; Deep Learning</div>
+        <ul class="edu-courses">
+          <li>Data Science &amp; Machine Learning</li>
+          <li>Deep Learning</li>
+          <li>Business Analytics</li>
+        </ul>
+      </div>
+      <div class="edu-year">May 2026</div>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-school">🎓 Carnegie Mellon University</div>
+        <div class="edu-degree">MS in Engineering Artificial Intelligence</div>
+        <ul class="edu-courses">
+          <li>Deep Learning</li>
+          <li>Natural Language Processing</li>
+          <li>Information Security</li>
+          <li>Algorithms &amp; Data Inference</li>
+        </ul>
+      </div>
+      <div class="edu-year">May 2023</div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <code>&lt;Made with ♥ /&gt;</code> by <span>Jean de Dieu Niyonteze</span><br/>
+  <small style="margin-top:.35rem;display:block;">© 2025 · Atlanta, GA · jeandedn@alumni.cmu.edu</small>
+</footer>
+
+<script>
+/* ── THEME ── */
+const html = document.documentElement;
+const btn  = document.getElementById('themeToggle');
+const icon = btn.querySelector('.t-icon');
+const lbl  = btn.querySelector('.t-label');
+const saved = localStorage.getItem('theme') || 'dark';
+if (saved === 'light') applyLight();
+btn.addEventListener('click', () => html.classList.contains('light') ? applyDark() : applyLight());
+function applyLight() { html.classList.add('light');    icon.textContent='☀️'; lbl.textContent='light'; localStorage.setItem('theme','light'); }
+function applyDark()  { html.classList.remove('light'); icon.textContent='🌙'; lbl.textContent='dark';  localStorage.setItem('theme','dark'); }
+
+/* ── FILTER ── */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const expLis     = document.querySelectorAll('.exp-list li');
+const expBlocks  = document.querySelectorAll('.exp-block');
+
+filterBtns.forEach(b => {
+  b.addEventListener('click', () => {
+    filterBtns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const cat = b.dataset.cat;
+    expLis.forEach(li => {
+      li.style.display = (cat === 'all' || li.dataset.cat === cat) ? '' : 'none';
+    });
+    expBlocks.forEach(block => {
+      const anyVisible = [...block.querySelectorAll('.exp-list li')].some(li => li.style.display !== 'none');
+      block.style.display = anyVisible ? '' : 'none';
+    });
+  });
+});
+
+/* ── SCROLL REVEAL ── */
+const sections = document.querySelectorAll('section');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
